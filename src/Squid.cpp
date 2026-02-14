@@ -16,7 +16,7 @@ namespace squid {
             eventListeners_[event_window] = {callback};
         }
     }
-    std::shared_ptr<Text> Squid::create_text(const std::wstring &text) { return std::make_shared<Text>(text, font_); }
+    std::shared_ptr<Text> Squid::create_text(const std::wstring &text, SDL_Renderer* renderer) { return std::make_shared<Text>(text, font_, renderer); }
 
     std::shared_ptr<AppWindow> Squid::create_window(const std::string &title, int w, int h, SDL_WindowFlags flags) {
         const auto window = new AppWindow(title, w, h, flags);

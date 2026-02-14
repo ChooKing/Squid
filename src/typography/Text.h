@@ -9,12 +9,18 @@ namespace squid {
     class Text {
         std::wstring text_;
         std::shared_ptr<Font> font_;
+        SDL_Texture* texture_ = nullptr;
+        SDL_Renderer* renderer_ = nullptr;
         //Coordinates are actually offsets relative to the window or other element
         int x_ = 0;
         int y_ = 0;
+        SDL_FRect src_rect_ = {0, 0, 0, 0};
+        SDL_FRect dst_rect_ = {0, 0, 0, 0};
+        void render_texture();
     public:
-        Text(std::wstring text, const std::shared_ptr<Font> &font);
-        void draw(SDL_Renderer* renderer) const;
+        Text(std::wstring text, const std::shared_ptr<Font> &font, SDL_Renderer* renderer);
+        void draw() const;
+
     };
 }
 
