@@ -37,12 +37,12 @@ namespace squid {
             constexpr int bytes_per_pixel = 4;
             const FT_Bitmap bitmap = face_->glyph->bitmap;
             const std::size_t size = static_cast<std::size_t>(bitmap.rows) *
-                                     static_cast<std::size_t>(std::abs(bitmap.pitch)) * bytes_per_pixel;
+                                     static_cast<std::size_t>(static_cast<int>(bitmap.width)) * bytes_per_pixel;
             const auto shared_copy =
                     std::shared_ptr<unsigned char[]>(new unsigned char[size], std::default_delete<unsigned char[]>());
             for (auto row = 0; row < bitmap.rows; ++row) {
-                for (auto col = 0; col < bitmap.pitch; ++col) {
-                    const auto pos = (row * bitmap.pitch + col) * bytes_per_pixel;
+                for (auto col = 0; col < bitmap.width; ++col) {
+                    const auto pos = (row * bitmap.width + col) * bytes_per_pixel;
                     shared_copy[pos] = 255;
                     shared_copy[pos + 1] = 255;
                     shared_copy[pos + 2] = 255;
@@ -59,5 +59,8 @@ namespace squid {
             add_character(ch);
         }
         return characters_.at(ch);
+    }
+    int Font::get_height() const {
+        return (face_->size->metrics.ascender - face_->size->metrics.descender) >> 6;
     }
 } // namespace squid
