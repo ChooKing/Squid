@@ -36,20 +36,24 @@ namespace squid {
         } else {
             constexpr int bytes_per_pixel = 4;
             const FT_Bitmap bitmap = face_->glyph->bitmap;
+            int width = bitmap.width;
+            if (width % 4 != 0) {
+                width += 4 - (width % 4);
+            }
             const std::size_t size = static_cast<std::size_t>(bitmap.rows) *
-                                     static_cast<std::size_t>(static_cast<int>(bitmap.width)) * bytes_per_pixel;
+                                     width * bytes_per_pixel;
             const auto shared_copy =
                     std::shared_ptr<unsigned char[]>(new unsigned char[size], std::default_delete<unsigned char[]>());
             for (auto row = 0; row < bitmap.rows; ++row) {
                 for (auto col = 0; col < bitmap.width; ++col) {
-                    const auto pos = (row * bitmap.width + col) * bytes_per_pixel;
+                    const auto pos = (row * width + col) * bytes_per_pixel;
                     shared_copy[pos] = 255;
                     shared_copy[pos + 1] = 255;
                     shared_copy[pos + 2] = 255;
                     shared_copy[pos + 3] = bitmap.buffer[row * bitmap.pitch + col];
                 }
             }
-            Character character = {face_->glyph->metrics, static_cast<int>(bitmap.width * bytes_per_pixel), bitmap.rows,
+            Character character = {face_->glyph->metrics, width * bytes_per_pixel, bitmap.rows,
                                    shared_copy};
             characters_.emplace(ch, std::make_shared<Character>(character));
         }
