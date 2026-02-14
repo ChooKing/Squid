@@ -1,4 +1,7 @@
 #include "AppWindow.h"
+
+#include <iostream>
+#include <ostream>
 #include <stdexcept>
 
 AppWindow::AppWindow(const std::string& title, const int w, const int h,
@@ -19,6 +22,9 @@ void AppWindow::redraw() const {
     SDL_RenderPresent(this->renderer_);
 }
 SDL_Renderer* AppWindow::getRenderer() const { return this->renderer_; }
+SDL_Surface *AppWindow::getSurface() const {
+    return this->surface_;
+}
 SDL_WindowID AppWindow::getId() const {
     return SDL_GetWindowID(this->window_);
 }

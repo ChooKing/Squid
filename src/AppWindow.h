@@ -14,8 +14,10 @@ class AppWindow {
 public:
     AppWindow(const std::string& title, int w, int h, SDL_WindowFlags flags);
     void redraw() const;
+    [[nodiscard]] SDL_WindowID getId() const;
     [[nodiscard]] SDL_Renderer* getRenderer() const;
-    [[nodiscard]]SDL_WindowID getId() const;
+    [[nodiscard]] SDL_Surface* getSurface() const;
+
 };
 
 
