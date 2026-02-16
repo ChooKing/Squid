@@ -9,7 +9,7 @@ namespace squid {
     class Text {
         std::wstring text_;
         std::shared_ptr<Font> font_;
-        SDL_Texture* texture_ = nullptr;
+        //SDL_Texture* texture_ = nullptr;
         SDL_Renderer* renderer_ = nullptr;
         Buffer buffer_;
         //Coordinates are actually offsets relative to the window or other element
@@ -20,10 +20,10 @@ namespace squid {
         int required_width_ = 0;
         int required_height_ = 0;
         void measure_text();
-        void render_texture();
+        void render();
     public:
         Text(std::wstring text, const std::shared_ptr<Font> &font, SDL_Renderer* renderer);
-        void draw() const;
+        [[nodiscard]] Buffer get_buffer() const;
 
     };
 }
