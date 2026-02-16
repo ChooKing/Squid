@@ -18,7 +18,7 @@ namespace squid {
         [[nodiscard]] int get_bpp() const;
         [[nodiscard]] int get_height() const;
         [[nodiscard]] int get_width() const;
-        [[nodiscard]] std::shared_ptr<unsigned char[]> get_pixels();
+        [[nodiscard]] std::shared_ptr<unsigned char[]> get_pixels() const;
 
         void blit(const Buffer& source, int x, int y) const;
     };

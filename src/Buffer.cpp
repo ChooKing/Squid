@@ -17,7 +17,7 @@ namespace squid {
     int Buffer::get_height() const {
         return height_;
     }
-    std::shared_ptr<unsigned char[]> Buffer::get_pixels() {
+    std::shared_ptr<unsigned char[]> Buffer::get_pixels() const{
     return pixels_;
 }
     void Buffer::blit(const Buffer &source, int x, int y) const {
