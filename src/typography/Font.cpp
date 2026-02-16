@@ -1,5 +1,5 @@
 #include "Font.h"
-
+#include "../globals.h"
 #include <cstring>
 #include <iostream>
 #include <ostream>
@@ -40,25 +40,22 @@ namespace squid {
         if (FT_Load_Char(face_, ch, FT_LOAD_RENDER) != 0) {
             std::cerr << "Could not load character" << std::endl;
         } else {
-            constexpr int bytes_per_pixel = 4;
             const FT_Bitmap bitmap = face_->glyph->bitmap;
-            const int width = pow2_next(bitmap.width);
-
             const std::size_t size = static_cast<std::size_t>(bitmap.rows) *
-                                     width * bytes_per_pixel;
+                                     bitmap.width * BYTES_PER_PIXEL;
             const auto shared_copy =
                     std::shared_ptr<unsigned char[]>(new unsigned char[size], std::default_delete<unsigned char[]>());
             for (auto row = 0; row < bitmap.rows; ++row) {
                 for (auto col = 0; col < bitmap.width; ++col) {
-                    const auto pos = (row * width + col) * bytes_per_pixel;
+                    const auto pos = (row * bitmap.width + col) * BYTES_PER_PIXEL;
                     shared_copy[pos] = 255;
                     shared_copy[pos + 1] = 255;
                     shared_copy[pos + 2] = 255;
                     shared_copy[pos + 3] = bitmap.buffer[row * bitmap.pitch + col];
                 }
             }
-            Character character = {face_->glyph->metrics, width * bytes_per_pixel, bitmap.rows,
-                                   shared_copy};
+            Character character = {face_->glyph->metrics, bitmap.rows,
+                                   Buffer(static_cast<int>(bitmap.width), static_cast<int>(bitmap.rows), shared_copy, BYTES_PER_PIXEL)};
             characters_.emplace(ch, std::make_shared<Character>(character));
         }
     }

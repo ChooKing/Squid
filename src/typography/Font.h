@@ -6,14 +6,13 @@
 #include <unordered_map>
 
 #include "freetype/freetype.h"
-#include <SDL3/SDL.h>
+#include "../Buffer.h"
 
 namespace squid {
     struct Character {
-        FT_Glyph_Metrics metrics;
-        int pitch;
-        unsigned int rows;
-        std::shared_ptr<unsigned char[]> bitmap;
+        FT_Glyph_Metrics metrics{};
+        unsigned int rows{};
+        Buffer buffer;
     };
     class Font {
         static FT_Library library_;
