@@ -34,7 +34,7 @@ namespace squid {
         SDL_Event e;
         bool quit = false;
         while (!quit) {
-            while (SDL_PollEvent(&e)) {
+            if (SDL_PollEvent(&e)) {
                 if (e.type == SDL_EVENT_QUIT)
                     quit = true;
                 else {
@@ -50,9 +50,10 @@ namespace squid {
                             std::cout << "Window resized to " << e.window.data1 << "x" << e.window.data2 << std::endl;
                         }
                     }
-                    runner();
+
                 }
             }
+            runner();
         }
     }
     void Squid::set_font(const std::shared_ptr<Font> &font) { font_ = font; }
