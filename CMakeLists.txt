@@ -38,7 +38,9 @@ add_library(Squid src/Squid.cpp
         src/typography/Text.h
         src/Buffer.cpp
         src/Buffer.h
-        src/globals.h)
+        src/globals.h
+        src/Node.cpp
+        src/Node.h)
 
 add_executable(Example example/main.cpp)
 
