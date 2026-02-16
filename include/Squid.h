@@ -16,6 +16,7 @@ namespace squid {
         std::map<std::pair<SDL_EventType, SDL_WindowID>, std::vector<std::function<void(SDL_Event &)>>>
                 eventListeners_{};
         std::shared_ptr<Font> font_{};
+        Uint32 frame_delay_{16}; //62.5fps
 
     public:
         Squid();
@@ -24,6 +25,7 @@ namespace squid {
         std::shared_ptr<AppWindow> create_window(const std::string &title, int w, int h, SDL_WindowFlags flags);
         void run(const std::function<void()> &runner);
         void set_font(const std::shared_ptr<Font> &font);
+        void set_frame_rate(Uint16 fps);
     };
 } // namespace squid
 

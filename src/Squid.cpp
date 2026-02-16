@@ -54,7 +54,11 @@ namespace squid {
                 }
             }
             runner();
+            SDL_Delay(frame_delay_);
         }
     }
     void Squid::set_font(const std::shared_ptr<Font> &font) { font_ = font; }
+    void Squid::set_frame_rate(const Uint16 fps) {
+        frame_delay_ = 1000 / fps;
+    }
 } // namespace squid
