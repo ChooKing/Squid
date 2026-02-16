@@ -8,7 +8,7 @@ namespace squid {
     }
     Buffer Text::get_buffer() const { return buffer_; }
 
-    void Text::measure_text() {
+    void Text::measure() {
         const auto font_metrics = font_->font_metrics();
         const auto required_height = font_metrics.height / 64;
         int required_width = 0;
@@ -21,7 +21,7 @@ namespace squid {
         required_height_ = required_height;
     }
     void Text::render() {
-        measure_text();
+        measure();
         buffer_ = Buffer(required_width_, required_height_);
         const auto font_metrics = font_->font_metrics();
         int x = 0;

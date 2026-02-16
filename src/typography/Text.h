@@ -4,12 +4,12 @@
 #include <string>
 #include <SDL3/SDL.h>
 #include "Font.h"
+#include "../Node.h"
 
 namespace squid {
-    class Text {
+    class Text: Node {
         std::wstring text_;
         std::shared_ptr<Font> font_;
-        //SDL_Texture* texture_ = nullptr;
         SDL_Renderer* renderer_ = nullptr;
         Buffer buffer_;
         //Coordinates are actually offsets relative to the window or other element
@@ -17,9 +17,7 @@ namespace squid {
         int y_ = 0;
         SDL_FRect src_rect_ = {0, 0, 0, 0};
         SDL_FRect dst_rect_ = {0, 0, 0, 0};
-        int required_width_ = 0;
-        int required_height_ = 0;
-        void measure_text();
+        void measure() override;
         void render();
     public:
         Text(std::wstring text, const std::shared_ptr<Font> &font, SDL_Renderer* renderer);
