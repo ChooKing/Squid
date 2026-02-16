@@ -19,16 +19,11 @@ namespace squid {
     void Text::render_texture() {
         const auto font_metrics = font_->font_metrics();
         const auto required_height =
-                font_metrics.height / 64 + 16; // The reason for the extra 16 is not known but determined via testing.
+                font_metrics.height / 64;
         int required_width = 0;
-
-        int test_height = 0;
-
         for (const auto c: text_) {
             const auto character = font_->get_character(c);
             required_width += (character->metrics.horiAdvance) / 64;
-
-
         }
 
         texture_ = SDL_CreateTexture(renderer_, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, required_width,
