@@ -29,17 +29,21 @@ namespace squid {
             add_character(ch);
         }
     }
-
+    int pow2_next(const unsigned int x) {
+        int n = 2;
+        while (n < x) {
+            n <<= 1;
+        }
+        return n;
+    }
     void Font::add_character(wchar_t ch) {
         if (FT_Load_Char(face_, ch, FT_LOAD_RENDER) != 0) {
             std::cerr << "Could not load character" << std::endl;
         } else {
             constexpr int bytes_per_pixel = 4;
             const FT_Bitmap bitmap = face_->glyph->bitmap;
-            int width = bitmap.width;
-            if (width % 4 != 0) {
-                width += 4 - (width % 4);
-            }
+            const int width = pow2_next(bitmap.width);
+
             const std::size_t size = static_cast<std::size_t>(bitmap.rows) *
                                      width * bytes_per_pixel;
             const auto shared_copy =
@@ -64,7 +68,7 @@ namespace squid {
         }
         return characters_.at(ch);
     }
-    int Font::get_height() const {
-        return (face_->size->metrics.ascender - face_->size->metrics.descender) >> 6;
+    FT_Size_Metrics Font::font_metrics() const {
+        return face_->size->metrics;
     }
 } // namespace squid

@@ -24,7 +24,7 @@ namespace squid {
     public:
         explicit Font(const std::string &path, int size);
         [[nodiscard]] std::shared_ptr<Character> get_character(char32_t ch);
-        [[nodiscard]] int get_height() const;
+        [[nodiscard]] FT_Size_Metrics font_metrics() const;
     };
 }
 
