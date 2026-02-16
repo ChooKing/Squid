@@ -20,4 +20,10 @@ namespace squid {
     std::shared_ptr<unsigned char[]> Buffer::get_pixels() {
     return pixels_;
 }
+    void Buffer::blit(const Buffer &source, int x, int y) const {
+        const auto source_pixels = source.pixels_.get();
+        for (auto row = 0; row < source.get_height(); ++row) {
+            memcpy(this->pixels_.get() + ((row + y) * this->width_ + x) * this->bytes_per_pixel_, source_pixels + row * source.width_ * source.bytes_per_pixel_, source.get_width() * source.get_bpp());
+        }
+    }
 } // namespace squid
