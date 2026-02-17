@@ -72,7 +72,7 @@ namespace squid {
             }
             pos++;
         }
-        measure.line_characters.push_back(pos - last_end_pos - 1);
+        measure.line_characters.push_back(pos - last_end_pos);
         measure.width = max_width;
         measure.height = measured_height;
         measure_result_ = measure;
@@ -109,21 +109,9 @@ namespace squid {
             x = 0;
             y += font_metrics.height / 64;
         }
-        std::cout << y << std::endl;
-
-        const auto character = (font_->get_character(text_.at(text_.size() -1))).get();
-        const auto buffer = character->buffer;
-        const auto metrics = character->metrics;
-
-
-        if (buffer.get_width() != 0) {
-            buffer_.blit(character->buffer, x, y + static_cast<int>(font_metrics.ascender / 64 - metrics.horiBearingY / 64) - font_metrics.height / 64);
-        }
 
         src_rect_ = {0, 0, static_cast<float>(required_width_), static_cast<float>(required_height_)};
         dst_rect_ = {static_cast<float>(x_), static_cast<float>(y_), static_cast<float>(required_width_),
                      static_cast<float>(required_height_)};
-        std::cout << "Rendered width: " << required_width_ << " ";
-        std::cout << " Rendered height: " << required_height_ << std::endl;
     }
 } // namespace squid
