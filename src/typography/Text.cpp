@@ -87,7 +87,6 @@ namespace squid {
         int x = indent_;
         int y = 0;
         const auto font_metrics = font_->font_metrics();
-        std::cout <<"Indent: " << indent_ << std::endl;
         for (const int line_character: measure_result_.line_characters) {
             for (auto i = 0; i < line_character; ++i) {
                 const auto c = text_[pos];
