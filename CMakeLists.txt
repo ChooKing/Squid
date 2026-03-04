@@ -40,7 +40,13 @@ add_library(Squid src/Squid.cpp
         src/Buffer.h
         src/globals.h
         src/Node.cpp
-        src/Node.h)
+        src/Node.h
+        src/nodes/Inline.cpp
+        src/nodes/Inline.h
+        src/nodes/Span.cpp
+        src/nodes/Span.h
+        src/Color.cpp
+        src/Color.h)
 
 add_executable(Example example/main.cpp)
 
