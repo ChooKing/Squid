@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 AppWindow::AppWindow(const std::string& title, const int w, const int h,
-                     const SDL_WindowFlags flags)
+                     const SDL_WindowFlags flags, const squid::Color bg_color = squid::Color(0, 0, 0, 255))
     : width(w), height(h) {
     if (!SDL_CreateWindowAndRenderer(title.c_str(), w, h, flags, &this->window_,
                                      &this->renderer_)) {
@@ -13,7 +13,8 @@ AppWindow::AppWindow(const std::string& title, const int w, const int h,
                                      }
     SDL_SetRenderLogicalPresentation(this->renderer_, w, h,
                                      SDL_LOGICAL_PRESENTATION_DISABLED);
-    SDL_SetRenderDrawColor(this->renderer_, 64, 64, 86, 255);
+    //SDL_SetRenderDrawColor(this->renderer_, 64, 64, 86, 255);
+    squid::Color::set_draw_color(this->renderer_, bg_color);
     this->surface_ = SDL_GetWindowSurface(this->window_);
     this->redraw();
 }

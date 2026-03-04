@@ -3,6 +3,7 @@
 
 #include <SDL3/SDL.h>
 #include <string>
+#include "Color.h"
 
 class AppWindow {
     int width;
@@ -12,7 +13,7 @@ class AppWindow {
     SDL_Renderer* renderer_ = nullptr;
 
 public:
-    AppWindow(const std::string& title, int w, int h, SDL_WindowFlags flags);
+    AppWindow(const std::string& title, int w, int h, SDL_WindowFlags flags, squid::Color bg_color);
     void redraw() const;
     [[nodiscard]] SDL_WindowID getId() const;
     [[nodiscard]] SDL_Renderer* getRenderer() const;
