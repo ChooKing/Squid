@@ -13,6 +13,9 @@ namespace squid {
     Uint8 Color::a() const {
         return a_;
     }
+    std::array<Uint8, 4> Color::as_array() const {
+        return {r_, g_, b_, a_};
+    }
     void Color::set_draw_color(SDL_Renderer *renderer, const Color & color) {
         SDL_SetRenderDrawColor(renderer, color.r_, color.g_, color.b_, color.a_);
     }
