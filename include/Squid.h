@@ -22,7 +22,7 @@ namespace squid {
         Squid();
         void add_event_listener(SDL_EventType e, SDL_WindowID w, const std::function<void(SDL_Event &)> &callback);
         std::shared_ptr<Text> create_text(const std::wstring& text, SDL_Renderer* renderer);
-        std::shared_ptr<AppWindow> create_window(const std::string &title, int w, int h, SDL_WindowFlags flags);
+        std::shared_ptr<AppWindow> create_window(const std::string &title, int w, int h, SDL_WindowFlags flags, Color bg_color = Color(0, 0, 0, 255));
         void run(const std::function<void()> &runner);
         void set_font(const std::shared_ptr<Font> &font);
         void set_frame_rate(Uint16 fps);

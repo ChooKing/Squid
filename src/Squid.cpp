@@ -18,8 +18,9 @@ namespace squid {
     }
     std::shared_ptr<Text> Squid::create_text(const std::wstring &text, SDL_Renderer* renderer) { return std::make_shared<Text>(text, font_, renderer); }
 
-    std::shared_ptr<AppWindow> Squid::create_window(const std::string &title, int w, int h, SDL_WindowFlags flags) {
-        const auto window = new AppWindow(title, w, h, flags);
+    std::shared_ptr<AppWindow> Squid::create_window(const std::string &title, const int w, const int h, const SDL_WindowFlags flags,
+                                                    const Color bg_color) {
+        const auto window = new AppWindow(title, w, h, flags, bg_color);
         auto shared_window = std::shared_ptr<AppWindow>(window);
         auto id = window->getId();
         if (main_window_ == nullptr) {
